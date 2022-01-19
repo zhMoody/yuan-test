@@ -1,30 +1,35 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <y-Loding></y-Loding>
+    <y-header></y-header>
+    <div class="content">
+      <yMenu></yMenu>
+      <yContent></yContent>
+    </div>
   </div>
-  <router-view />
 </template>
+<script>
+  import yLoding from '@/views/loding'
+  import yHeader from '@/layout/Header/header.vue'
+  import yMenu from '@/layout/Menu/menu.vue'
+  import yContent from '@/layout/Content/content.vue'
+  import { getData } from '@/api'
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  export default {
+    components: {
+      yLoding,
+      yHeader,
+      yMenu,
+      yContent,
+    },
+    async created() {
+      const res = await getData()
+      console.log(res)
+    },
+  }
+</script>
+<style scoped lang="scss">
+  .content {
+    margin-top: 100px;
+  }
 </style>
