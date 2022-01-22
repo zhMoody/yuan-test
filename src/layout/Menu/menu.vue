@@ -5,9 +5,10 @@
         <img src="https://s1.ax1x.com/2020/07/25/UzAaMq.jpg" alt="" />
       </router-link>
     </div>
-    <div id="text" class="text">导航</div>
-    <div>
+
+    <div class="menu_card">
       <ul class="menu">
+        <li id="text" class="text">导航</li>
         <li>
           <router-link to="/">
             <svg class="icon" aria-hidden="true">
@@ -48,7 +49,35 @@
             </svg>
           </div>
           <transition name="slide-fade">
-            <ul v-show="item.isSubShow" class="menu">
+            <ul v-show="item.isSubShow" class="menu-item">
+              <li v-for="subItem in item.subItems" :key="subItem.name">
+                <router-link :to="subItem.path">{{ subItem.name }}</router-link>
+              </li>
+            </ul>
+          </transition>
+        </li>
+        <li id="text" class="text">组成</li>
+        <li
+          v-for="(item, index) in navItemList"
+          :key="item.name"
+          class="oneMenu"
+        >
+          <div
+            :class="item.isSubShow ? 'active' : ''"
+            @click="showSubItem(item, index)"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use :xlink:href="item.icon"></use>
+            </svg>
+            <span>{{ item.name }}</span>
+            <svg class="icon float" aria-hidden="true">
+              <use
+                :xlink:href="item.isSubShow ? '#icon-shang' : '#icon-xia'"
+              ></use>
+            </svg>
+          </div>
+          <transition name="slide-fade">
+            <ul v-show="item.isSubShow" class="menu-item">
               <li v-for="subItem in item.subItems" :key="subItem.name">
                 <router-link :to="subItem.path">{{ subItem.name }}</router-link>
               </li>
@@ -77,7 +106,7 @@
       return {
         menuList: [
           {
-            name: '一级目录',
+            name: '菜单一',
             isSubShow: false,
             icon: '#icon-category',
             subItems: [
@@ -100,10 +129,69 @@
             ],
           },
           {
-            name: '一级目录',
+            name: '菜单二',
             isSubShow: false,
             icon: '#icon-biaoqian',
             subItems: [
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+            ],
+          },
+        ],
+        navItemList: [
+          {
+            name: '分类',
+            isSubShow: false,
+            icon: '#icon-calendar',
+            subItems: [
+              {
+                name: '二级目录',
+                path: '/links',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+            ],
+          },
+          {
+            name: '页面',
+            isSubShow: false,
+            icon: '#icon-biaoqian',
+            subItems: [
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+            ],
+          },
+          {
+            name: '友链',
+            isSubShow: false,
+            icon: '#icon-lianjie1',
+            subItems: [
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
               {
                 name: '二级目录',
                 path: '/',
@@ -127,7 +215,15 @@
           }
         })
         item.isSubShow = !item.isSubShow
-        console.log(item.name)
+      },
+      showSubItem(item, ind) {
+        this.navItemList.forEach((i) => {
+          // 判断如果数据中的menuList[i]的show属性不等于当前数据的isSubShow属性那么menuList[i]等于false
+          if (i.isSubShow !== this.navItemList[ind].isSubShow) {
+            i.isSubShow = false
+          }
+        })
+        item.isSubShow = !item.isSubShow
       },
     },
   }
@@ -147,7 +243,7 @@
   }
   #menu {
     width: 18%;
-    height: 100vh;
+    min-height: 90vh;
     //background-color: var(--inis-background);
     background-color: #cccccc2d;
     margin-left: 50px;
@@ -156,7 +252,9 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
     border-radius: 5px;
     user-select: none;
+
     .leftbar-user {
+      height: 25%;
       background: url(~@/assets/waves.png) no-repeat;
       padding: 30px 20px;
       text-align: center;
@@ -182,12 +280,22 @@
       margin-top: 30px;
       margin-left: 30px;
       margin-bottom: 20px;
-      color: var(--yuan-font-color);
+      color: var(--yuan-font-white-color);
     }
 
     .menu {
       width: 100%;
-      height: 100%;
+      height: 700px;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+      padding: 0 0.1rem;
+      margin-bottom: -0.2rem;
+      overflow: -moz-scrollbars-none;
+      overflow: -moz-scrollbars-none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .menu li {
@@ -218,15 +326,18 @@
   }
   .oneMenu {
     user-select: none;
-    width: 100%;
-    height: 100%;
     padding: 15px 30px;
     font-size: 16px;
     color: var(--yuan-font-white-color);
+    transition: all 0.4s;
+    cursor: pointer;
     .active {
       color: #0acf97 !important;
     }
-    .menu li a {
+    &:hover {
+      color: #0acf97;
+    }
+    .menu-item li a {
       padding: 30px 30px 0 30px !important;
     }
     .icon {
