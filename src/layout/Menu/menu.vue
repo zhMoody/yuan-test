@@ -32,19 +32,31 @@
             YUAN-使用文档
           </router-link>
         </li>
-        <li class="line"></li>
-        <li>
-          <router-link to="/add">
+        <li v-for="(item, index) in menuList" :key="item.name" class="oneMenu">
+          <div
+            :class="item.isSubShow ? 'active' : ''"
+            @click="showToggle(item, index)"
+          >
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-category"></use>
+              <use :xlink:href="item.icon"></use>
             </svg>
-            菜单一
+            <span>{{ item.name }}</span>
             <svg class="icon float" aria-hidden="true">
-              <use xlink:href="#icon-xia"></use>
+              <use
+                :xlink:href="item.isSubShow ? '#icon-shang' : '#icon-xia'"
+              ></use>
             </svg>
-          </router-link>
+          </div>
+          <transition name="slide-fade">
+            <ul v-show="item.isSubShow" class="menu">
+              <li v-for="subItem in item.subItems" :key="subItem.name">
+                <router-link :to="subItem.path">{{ subItem.name }}</router-link>
+              </li>
+            </ul>
+          </transition>
         </li>
-        <li>
+      </ul>
+      <!-- <li>
           <router-link to="/1234">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-biaoqian"></use>
@@ -53,9 +65,7 @@
             <svg class="icon float" aria-hidden="true">
               <use xlink:href="#icon-xia"></use>
             </svg>
-          </router-link>
-        </li>
-      </ul>
+          </router-link> -->
     </div>
   </div>
 </template>
@@ -63,10 +73,78 @@
 <script>
   export default {
     name: 'Menu',
+    data() {
+      return {
+        menuList: [
+          {
+            name: '一级目录',
+            isSubShow: false,
+            icon: '#icon-category',
+            subItems: [
+              {
+                name: '二级目录',
+                path: '/links',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+            ],
+          },
+          {
+            name: '一级目录',
+            isSubShow: false,
+            icon: '#icon-biaoqian',
+            subItems: [
+              {
+                name: '二级目录',
+                path: '/',
+              },
+              {
+                name: '二级目录',
+                path: '/',
+              },
+            ],
+          },
+        ],
+      }
+    },
+    methods: {
+      // 点击展开折叠菜单事件
+      showToggle(item, ind) {
+        this.menuList.forEach((i) => {
+          // 判断如果数据中的menuList[i]的show属性不等于当前数据的isSubShow属性那么menuList[i]等于false
+          if (i.isSubShow !== this.menuList[ind].isSubShow) {
+            i.isSubShow = false
+          }
+        })
+        item.isSubShow = !item.isSubShow
+        console.log(item.name)
+      },
+    },
   }
 </script>
 
 <style scoped lang="scss">
+  .slide-fade-enter-active {
+    transition: all 0.3s ease-out !important;
+  }
+  // .slide-fade-leave-active {
+  //   transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
+  // }
+  .slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(10px) !important;
+    opacity: 0 !important;
+  }
   #menu {
     width: 18%;
     height: 100vh;
@@ -77,7 +155,7 @@
     position: fixed;
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
     border-radius: 5px;
-
+    user-select: none;
     .leftbar-user {
       background: url(~@/assets/waves.png) no-repeat;
       padding: 30px 20px;
@@ -123,25 +201,9 @@
         -webkit-transition: all 0.4s;
         transition: all 0.4s;
 
-        .icon {
-          margin-right: 10px;
-        }
-
-        .float {
-          float: right;
-        }
-
         &:hover {
           color: #0acf97;
         }
-      }
-
-      .line::before {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 2px;
-        background-color: #ccc;
       }
     }
 
@@ -152,6 +214,27 @@
 
     .router-link-active {
       color: #0acf97 !important;
+    }
+  }
+  .oneMenu {
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    padding: 15px 30px;
+    font-size: 16px;
+    color: var(--yuan-font-white-color);
+    .active {
+      color: #0acf97 !important;
+    }
+    .menu li a {
+      padding: 30px 30px 0 30px !important;
+    }
+    .icon {
+      margin-right: 10px;
+    }
+
+    .float {
+      float: right;
     }
   }
 </style>
