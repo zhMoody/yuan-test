@@ -1,55 +1,55 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
-    color: #131313;
-    background-color: transparent;
+  text-decoration: none;
+  color: #131313;
+  background-color: transparent;
 }
 
 li {
-    list-style: none;
+  list-style: none;
 }
 
 .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
 
 body {
-    background: url("../assets/hai.jpg.jpeg") top center no-repeat fixed;
-    background-size: 100% 100%;
-    transition: all .5s;
+  /* background: url("../assets/hai.jpg.jpeg") top center no-repeat fixed; */
+  background-size: 100% 100%;
+  transition: all 0.5s;
 }
 
 :root {
-    --yuan-bg-clolr: #cccccc2d;
-    --yuan-font-color: #50545a;
-    --yuan-font-white-color: #868687;
-    --yuan-indigo: #727cf5;
-    --yuan-purple: #6b5eae;
-    --yuan-pink: #ff679b;
-    --yuan-red: #fa5c7c;
-    --yuan-orange: #fd7e14;
-    --yuan-yellow: #ffbc00;
-    --yuan-green: #0acf97;
-    --yuan-teal: #02a8b5;
-    --yuan-cyan: #39afd1;
-    --yuan-white: #fff;
-    --yuan-gray: #98a6ad;
-    --yuan-gray-dark: #343a40;
-    --yuan-primary: #727cf5;
-    --yuan-secondary: #6c757d;
-    --yuan-success: #0acf97;
-    --yuan-info: #39afd1;
-    --yuan-warning: #ffbc00;
-    --yuan-danger: #fa5c7c;
-    --yuan-light: #e3eaef;
-    --yuan-dark: #313a46;
+  --yuan-bg-clolr: #cccccc2d;
+  --yuan-font-color: #50545a;
+  --yuan-font-white-color: #868687;
+  --yuan-indigo: #727cf5;
+  --yuan-purple: #6b5eae;
+  --yuan-pink: #ff679b;
+  --yuan-red: #fa5c7c;
+  --yuan-orange: #fd7e14;
+  --yuan-yellow: #ffbc00;
+  --yuan-green: #0acf97;
+  --yuan-teal: #02a8b5;
+  --yuan-cyan: #39afd1;
+  --yuan-white: #fff;
+  --yuan-gray: #98a6ad;
+  --yuan-gray-dark: #343a40;
+  --yuan-primary: #727cf5;
+  --yuan-secondary: #6c757d;
+  --yuan-success: #0acf97;
+  --yuan-info: #39afd1;
+  --yuan-warning: #ffbc00;
+  --yuan-danger: #fa5c7c;
+  --yuan-light: #e3eaef;
+  --yuan-dark: #313a46;
 }
