@@ -11,18 +11,60 @@
     <div class="news">
       <div class="TakeUpInfo">
         <div class="blogInfo">
-          <h1>YUAN 主题</h1>
+          <h1 class="blogTitle">YUAN 主题</h1>
         </div>
-        <div class="TakeUp">内存占用：{{ TakeUp.Mb }}</div>
+        <div class="TakeUp">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-neicun-RAM"></use>
+            </svg>
+            内存占用率：
+          </div>
+        </div>
         <div class="TakeUp_card">
           <div class="tikeUp">
             <div class="progress"></div>
           </div>
-          <div>{{ TakeUp.percentage }}%</div>
+          <div style="color: var(--yuan-font-white-color)">
+            {{ TakeUp.percentage }}%
+          </div>
         </div>
-        <div>DOM渲染耗时：{{ TakeUp.TimeConsuming }}</div>
-        <div>TCP链接耗时：{{ TakeUp.TCP }}</div>
-        <div>响应耗时：{{ TakeUp.response }}</div>
+        <div class="TakeUp">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-neicun-RAM"></use>
+            </svg>
+            内存占用：
+          </div>
+          <span class="information">{{ TakeUp.Mb }}</span>
+        </div>
+        <div class="dom">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-renwuguanli"></use>
+            </svg>
+            DOM渲染耗时：
+          </div>
+          <span class="information">{{ TakeUp.TimeConsuming }}</span>
+        </div>
+        <div class="response">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-reserve"></use>
+            </svg>
+            响应耗时：
+          </div>
+          <span class="information">{{ TakeUp.response }}</span>
+        </div>
+        <div class="article">
+          <div>
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-wenzhang"></use>
+            </svg>
+            文章：
+          </div>
+          <span class="information">{{ TakeUp.article }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -77,8 +119,8 @@
         Mb: 0,
         percentage: 0,
         TimeConsuming: '0',
-        TCP: '0',
         response: '0',
+        article: 0,
       })
       const img = ref([
         'baise.jpeg',
@@ -92,11 +134,11 @@
       let _per = window.performance
 
       function getmb(size) {
-        return Math.floor(size / 1024 / 1024, 4) + 'mb'
+        return Math.floor(size / 1024 / 1024, 4) + 'MB'
       }
 
       function getsec(time) {
-        return time / 1000 + 's'
+        return time / 1000 + 'S'
       }
 
       setInterval(() => {
@@ -109,9 +151,6 @@
         this.TakeUp.percentage = Math.ceil(TakeUp)
       }, 1000)
 
-      this.TakeUp.TCP = getsec(
-        _per.timing.connectEnd - _per.timing.connectStart
-      )
       this.TakeUp.response = getsec(
         _per.timing.responseEnd - _per.timing.responseStart
       )
@@ -122,6 +161,7 @@
       }
       const res = await getData()
       this.cardList = res.data.data
+      this.TakeUp.article = res.data.data.length
     },
   }
 </script>
@@ -157,17 +197,40 @@
         justify-content: space-between;
       }
 
+      .blogTitle {
+        color: var(--yuan-font-color);
+      }
+
+      .TakeUp,
+      .dom,
+      .response,
+      .article {
+        display: flex;
+        justify-content: space-between;
+        height: 20px;
+        margin-top: 10px;
+        color: var(--yuan-font-white-color);
+        font-size: 16px;
+      }
+
+      .information {
+        display: inline-block;
+        padding: 0 10px;
+        background-color: #30d2db;
+        border-radius: 10px;
+      }
+
       .tikeUp {
-        width: 80%;
-        height: 10px;
-        border: 2px solid #fff;
+        width: 85%;
+        height: 5px;
+        background-color: #ccc;
         border-radius: 5px;
         overflow: hidden;
 
         .progress {
           width: 0;
           height: 100%;
-          background-color: red;
+          background-color: #43eeb2;
           transition: all 0.5s;
           border-radius: 5px;
         }
