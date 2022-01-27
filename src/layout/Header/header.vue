@@ -1,5 +1,5 @@
 <template>
-  <div id="header" ref="headerRef">
+  <div id="header" ref="headerRef" theme>
     <div class="left">
       <div class="logo">
         <router-link to="/links">
@@ -51,169 +51,176 @@
 </template>
 
 <script>
-  import MusicPlay from '@/components/musicPlay.vue'
+import MusicPlay from "@/components/musicPlay.vue";
 
-  import { handleArrData } from '@/utils'
-  import music from '@/api/163musicApi'
-  import { ref } from 'vue'
-  import { ElNotification } from 'element-plus'
+import { handleArrData } from "@/utils";
+import music from "@/api/163musicApi";
+import { ref } from "vue";
+import { ElNotification } from "element-plus";
 
-  export default {
-    name: 'Header',
-    components: {
-      MusicPlay,
-    },
-    setup() {
-      const musiclist = ref([
-        //数据格式
-        {
-          id: 0,
-          name: '童话镇', //歌曲名
-          url: 'http://ting6.yymp3.net:82/new27/chengyifa/1.mp3', // 歌曲url
-          cover:
-            'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fbkimg.cdn.bcebos.com%2Fpic%2F0ff41bd5ad6eddc4405c3d8533dbb6fd52663310&refer=http%3A%2F%2Fbkimg.cdn.bcebos.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642124154&t=cc6198748d1d376fba5dd48b43b4b6af', // 歌曲封面
-          singer: '陈一发儿', // 歌手
-        },
-      ])
-      const showDialog = () => {
-        ElNotification({
-          title: '复制成功',
-          message: `${musiclist.value}`,
-          type: 'success',
-          offset: 70,
-          duration: 2000,
-        })
-      }
-      return {
-        showDialog,
-        musiclist,
-      }
-    },
-    created() {
-      this.getSongList()
-    },
-    methods: {
-      // music play List
-      async getSongList() {
-        const res = await music.getMusicList(478946817)
-        console.log(res.data.playlist.tracks)
-        if (res.status === 200 && res.data) {
-          let arr = []
-          for (const item of res.data.playlist.tracks) {
-            const song = await music.getSong(item.id)
-            const songurl = await music.getSongUrl(item.id)
-            arr.push({
-              ...song.data.songs[0],
-              ...song.data.songs[0],
-              ...songurl.data.data[0],
-            })
-            this.musiclist = handleArrData(arr)
-          }
-        }
+export default {
+  name: "Header",
+  components: {
+    MusicPlay
+  },
+  setup() {
+    const musiclist = ref([
+      //数据格式
+      {
+        id: 0,
+        name: "漫步人生路 (原唱：邓丽君)", //歌曲名
+        url: "http://m10.music.126.net/20220127160017/ce94e914e388f251a006435e80d31538/yyaac/obj/wonDkMOGw6XDiTHCmMOi/1918458169/baa9/638e/4385/bfc440b9ca05c987fc7d4178814325ef.m4a", // 歌曲url
+        cover: "http://p2.music.126.net/eoSIzgM0aCYBhw-eV_U7hw==/109951164818179058.jpg?param=130y130",
+        singer: "丫蛋蛋" // 歌手
       },
-    },
+      {
+        id: 1,
+        name: "喜欢你", //歌曲名
+        url: "http://m704.music.126.net/20220127160845/f823c55bb07bf119b90abba70cbcc906/jdyyaac/5359/5659/0409/d37e80e877a318ee6fd23c169dd395a7.m4a?authSecret=0000017e9a7d8b3200570aaba72e169b",
+        cover: "http://p1.music.126.net/u_1EudmF8Swgow6vfgYe1g==/8896148580676276.jpg?param=130y130",
+        singer: "G.E.M.邓紫棋" // 歌手
+      }
+    ]);
+    const showDialog = () => {
+      ElNotification({
+        title: "复制成功",
+        message: `${musiclist.value}`,
+        type: "success",
+        offset: 70,
+        duration: 2000
+      });
+    };
+    return {
+      showDialog,
+      musiclist
+    };
+  },
+  created() {
+    this.getSongList();
+  },
+  methods: {
+    // music play List
+    async getSongList() {
+      const res = await music.getMusicList(5081480238);
+      console.log(res.data.playlist.tracks);
+      if (res.status === 200 && res.data) {
+        let arr = [];
+        for (const item of res.data.playlist.tracks) {
+          const song = await music.getSong(item.id);
+          const songurl = await music.getSongUrl(item.id);
+          arr.push({
+            ...song.data.songs[0],
+            ...song.data.songs[0],
+            ...songurl.data.data[0]
+          });
+          this.musiclist = handleArrData(arr);
+        }
+      }
+    }
   }
+};
 </script>
 
 <style scoped lang="scss">
-  svg {
-    height: 35px;
+svg {
+  height: 35px;
+}
+
+#header {
+  width: 100%;
+  height: 70px;
+  line-height: 80px;
+  background: url('~@/assets/MulticolorGlows.png') #e7e4e4;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  border-radius: 5px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  transition: all 0.5s;
+
+  ::v-deep .el-notification {
+    background-color: rgba(255, 255, 255, 0.99) !important;
   }
 
-  #header {
-    width: 100%;
-    height: 70px;
-    line-height: 80px;
-    background: url('~@/assets/MulticolorGlows.png') #e7e4e4;
+  .left {
     display: flex;
-    justify-content: space-between;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    border-radius: 5px;
-    position: fixed;
-    top: 0;
-    z-index: 100000;
+    margin-left: 50px;
+  }
 
-    ::v-deep .el-notification {
-      background-color: rgba(255, 255, 255, 0.99) !important;
-    }
+  .right {
+    display: flex;
+    margin-right: 50px;
+    line-height: 18px;
+    padding-top: 5px;
+  }
 
-    .left {
-      display: flex;
-      margin-left: 50px;
-    }
-
-    .right {
-      display: flex;
-      margin-right: 50px;
-      line-height: 18px;
-      padding-top: 5px;
-    }
-
-    .logo {
-      .font {
-        font-size: 50px;
-        font-weight: 500;
-        color: #000b34ff;
-        user-select: none;
-        font-family: Basketball, sans-serif;
-      }
+  .logo {
+    .font {
+      font-size: 50px;
+      font-weight: 500;
+      color: #000b34ff;
+      user-select: none;
+      font-family: Basketball, sans-serif;
     }
   }
+}
 
-  .search {
-    margin-left: 65px;
-    line-height: 65px;
-  }
+.search {
+  margin-left: 65px;
+  line-height: 65px;
+}
 
-  .search > div {
-    display: inline-block;
-    position: relative;
-    filter: drop-shadow(0 1px #0091c2);
-  }
+.search > div {
+  display: inline-block;
+  position: relative;
+  filter: drop-shadow(0 1px #0091c2);
+}
 
-  .search > div:after {
-    content: '';
-    background: #000b34ff;
-    width: 4px;
-    height: 20px;
-    position: absolute;
-    top: 40px;
-    right: 2px;
-    transform: rotate(135deg);
-  }
+.search > div:after {
+  content: '';
+  background: #000b34ff;
+  width: 4px;
+  height: 20px;
+  position: absolute;
+  top: 40px;
+  right: 2px;
+  transform: rotate(135deg);
+}
 
-  .search > div > input {
-    color: #000b34ff;
-    font-size: 16px;
-    background: transparent;
-    width: 35px;
-    height: 35px;
-    padding: 10px;
-    border: solid 3px #000b34ff;
-    outline: none;
-    border-radius: 35px;
-    transition: width 0.5s;
-  }
+.search > div > input {
+  color: #000b34ff;
+  font-size: 16px;
+  background: transparent;
+  width: 35px;
+  height: 35px;
+  padding: 10px;
+  border: solid 3px #000b34ff;
+  outline: none;
+  border-radius: 35px;
+  transition: width 0.5s;
+}
 
-  .search > div > input::placeholder {
-    color: #2f2e2e;
-    opacity: 0;
-    font-size: 12px;
-    transition: opacity 150ms ease-out;
-  }
+.search > div > input::placeholder {
+  color: #2f2e2e;
+  opacity: 0;
+  font-size: 12px;
+  transition: opacity 150ms ease-out;
+}
 
-  .search > div > input:focus::placeholder {
-    opacity: 1;
-  }
+.search > div > input:focus::placeholder {
+  opacity: 1;
+}
 
-  .search > div > input:focus,
-  .search > div > input:not(:placeholder-shown) {
-    width: 250px;
-  }
+.search > div > input:focus,
+.search > div > input:not(:placeholder-shown) {
+  width: 250px;
+}
 
-  .icon {
-    font-size: 35px;
-    margin-top: 15px;
-    margin-left: 20px;
-  }
+.icon {
+  font-size: 35px;
+  margin-top: 15px;
+  margin-left: 20px;
+}
 </style>

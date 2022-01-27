@@ -1,8 +1,6 @@
 <template>
   <div id="content">
-    <transition name="el-fade-in-linear">
-      <router-view />
-    </transition>
+    <router-view />
     <yFooter class="footer"></yFooter>
   </div>
 </template>
@@ -25,11 +23,11 @@
     margin-left: 23%;
     margin-top: 40px;
     margin-right: 50px;
-    background-color: var(--yuan-bg-clolr);
-    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+    //background-color: var(--yuan-bg-clolr);
+    //box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
     border-radius: 5px;
-    padding: 20px;
     position: relative;
+    transition: all 0.1s;
   }
 
   .footer {

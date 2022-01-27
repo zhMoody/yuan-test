@@ -29,7 +29,7 @@
             {{ TakeUp.percentage }}%
           </div>
         </div>
-        <div class="TakeUp">
+        <div class="TakeUps">
           <div>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-neicun-RAM"></use>
@@ -69,7 +69,12 @@
     </div>
   </div>
   <div class="card">
-    <div v-for="item in cardList" :key="item.title" class="card_img">
+    <div
+      v-for="item in cardList"
+      :key="item.title"
+      class="card_img"
+      @click="$router.push(`/article/${item.shopId}`)"
+    >
       <div class="card_logo">
         <div class="card_icon">
           <img src="../../assets/baise.jpeg" alt="" />
@@ -77,10 +82,16 @@
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-image"></use>
         </svg>
-        <span class="likes">{{ item.likes }}</span>
+        <span class="likes">
+          <i class="iconfont icon-lliulan"></i>
+          {{ item.likes }}
+        </span>
       </div>
       <div class="card_title">
         <h2 class="title">
+          <span :class="item.overhead == 1 ? 'overHead' : null">
+            {{ item.overhead == 1 ? '置顶' : null }}
+          </span>
           {{ item.title }}
         </h2>
         <div class="user_logo_info">
@@ -92,10 +103,20 @@
             <p class="username">{{ item.username }}</p>
           </div>
           <div class="info">
-            <p class="content">评论：{{ item.comments }}</p>
+            <p class="content">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-duihua"></use>
+              </svg>
+              {{ item.comments }}
+            </p>
+            <p class="timer">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-shijian"></use>
+              </svg>
+              {{ item.time }}
+            </p>
           </div>
         </div>
-        <p class="timer">{{ item.time }}</p>
       </div>
     </div>
   </div>
@@ -134,14 +155,16 @@
       let _per = window.performance
 
       function getmb(size) {
-        return Math.floor(size / 1024 / 1024, 4) + 'MB'
+        return Math.floor(size / 1024 / 1024, 4) + 'Mb'
       }
 
       function getsec(time) {
-        return time / 1000 + 'S'
+        return time / 1000 + 's'
       }
 
-      setInterval(() => {
+      let time
+      time = setInterval(() => {
+        clearInterval(time)
         let TakeUp =
           (_per.memory.totalJSHeapSize / _per.memory.jsHeapSizeLimit) * 100
         document.querySelector('.progress').style.width = `${Math.ceil(
@@ -160,7 +183,10 @@
         )
       }
       const res = await getData()
-      this.cardList = res.data.data
+      let overheadList = res?.data?.data.filter((item) => item.overhead === 1)
+      let newCardList = new Set([...overheadList, ...res?.data?.data])
+      console.log('overheadList', overheadList)
+      this.cardList = newCardList || []
       this.TakeUp.article = res.data.data.length
     },
   }
@@ -191,6 +217,8 @@
 
     // 内存进度条
     .TakeUpInfo {
+      margin-top: 10px;
+
       .TakeUp_card {
         display: flex;
         align-items: center;
@@ -202,9 +230,11 @@
       }
 
       .TakeUp,
+      .TakeUps,
       .dom,
       .response,
       .article {
+        margin-bottom: 30px;
         display: flex;
         justify-content: space-between;
         height: 20px;
@@ -213,10 +243,14 @@
         font-size: 16px;
       }
 
+      .TakeUp {
+        margin-bottom: 10px;
+      }
+
       .information {
         display: inline-block;
         padding: 0 10px;
-        background-color: #30d2db;
+        background-color: rgba(48, 210, 219, 0.37);
         border-radius: 10px;
       }
 
@@ -285,6 +319,7 @@
           background-color: #fff;
           font-size: 14px;
           opacity: 0.5;
+          transform: scale(0.8);
         }
 
         .card_icon {
@@ -317,6 +352,16 @@
           text-overflow: ellipsis;
           white-space: nowrap;
           color: var(--yuan-font-color);
+          padding-top: 2px;
+          font-weight: 500;
+
+          .overHead {
+            display: inline-block;
+            padding: 2px 4px;
+            background-color: #e85d5d;
+            border-radius: 5px;
+            font-size: 14px;
+          }
         }
 
         .user_logo_info {
@@ -366,20 +411,16 @@
             width: 100%;
             font-size: 14px;
             margin-right: 10px;
+            text-align: right;
 
-            .content {
+            .content,
+            .timer {
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
               color: var(--yuan-font-color);
             }
           }
-        }
-
-        .timer {
-          padding: 0 10px;
-          text-align: right;
-          color: var(--yuan-font-color);
         }
       }
     }

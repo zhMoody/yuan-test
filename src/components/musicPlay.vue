@@ -547,6 +547,6 @@
   }
 
   ::v-deep .el-avatar {
-    --el-avatar-bg-color: rgba(255, 255, 255, 0.53);
+    --el-avatar-bg-color: var(--yuan-bg-clolr);
   }
 </style>

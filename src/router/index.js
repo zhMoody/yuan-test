@@ -12,11 +12,23 @@ const routes = [
   {
     path: '/links',
     name: 'Links',
+    component: () =>
+      import(/* webpackChunkName: "link" */ '../views/links/Links'),
+  },
+  {
+    path: '/article/:id',
+    name: 'article',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "link" */ '../views/links/Links'),
+      import(/* webpackChunkName: "article" */ '../components/article/index'),
+  },
+
+  {
+    path: '/:catchAll(.*)',
+    name: 'notFound',
+    component: () => import(/* webpackChunkName: "404" */ '../components/404'),
   },
 ]
 

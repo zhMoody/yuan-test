@@ -10,7 +10,10 @@ module.exports = {
     "vue/no-v-html": "off",
     "vue/no-multiple-template-root": "off",
     "vue/no-mutating-props": "off",
-    "vue/no-duplicate-attributes": "off"
+    "vue/no-duplicate-attributes": "off",
+    "@vue/compiler-sfc": "off",
+    "prettier/prettier": "off",
+    "vue/valid-v-on": "off"
 
   },
   parserOptions: {
