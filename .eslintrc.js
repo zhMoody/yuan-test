@@ -13,8 +13,8 @@ module.exports = {
     "vue/no-duplicate-attributes": "off",
     "@vue/compiler-sfc": "off",
     "prettier/prettier": "off",
-    "vue/valid-v-on": "off"
-
+    "vue/valid-v-on": "off",
+    "vue/no-parsing-error": "off"
   },
   parserOptions: {
     parser: "babel-eslint"

@@ -1,36 +1,23 @@
 <template>
   <div id="menu">
-    <div class="leftbar-user">
-      <router-link to="/">
-        <img src="https://s1.ax1x.com/2020/07/25/UzAaMq.jpg" alt="" />
-      </router-link>
+    <div class="bgImg">
+      <div class="leftbar-user">
+        <router-link to="/">
+          <img src="https://s1.ax1x.com/2020/07/25/UzAaMq.jpg" alt="" />
+        </router-link>
+        <div id="signature"></div>
+      </div>
     </div>
 
     <div class="menu_card">
       <ul class="menu">
-        <li id="text" class="text">导航</li>
-        <li>
-          <router-link to="/">
+        <li class="text">导航</li>
+        <li v-for="navigation in navigationList" :key="navigation.path">
+          <router-link :to="navigation.path">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-zhuye"></use>
+              <use :xlink:href="navigation.icon"></use>
             </svg>
-            首页
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/links">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-biaoqian1"></use>
-            </svg>
-            YUAN官网
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/about">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-wendang"></use>
-            </svg>
-            YUAN-使用文档
+            {{ navigation.name }}
           </router-link>
         </li>
         <li v-for="(item, index) in menuList" :key="item.name" class="oneMenu">
@@ -77,21 +64,13 @@
           </ul>
         </li>
       </ul>
-      <!-- <li>
-          <router-link to="/1234">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-biaoqian"></use>
-            </svg>
-            菜单二
-            <svg class="icon float" aria-hidden="true">
-              <use xlink:href="#icon-xia"></use>
-            </svg>
-          </router-link> -->
     </div>
   </div>
 </template>
 
 <script>
+import { chakhsu } from "@/utils";
+
 export default {
   name: "Menu",
   data() {
@@ -194,8 +173,28 @@ export default {
             }
           ]
         }
+      ],
+      navigationList: [
+        {
+          name: " 首页",
+          path: "/",
+          icon: "#icon-zhuye"
+        },
+        {
+          name: "YUAN官网",
+          path: "/links",
+          icon: "#icon-biaoqian1"
+        },
+        {
+          name: "YUAN-使用文档",
+          path: "/s",
+          icon: "#icon-wendang"
+        }
       ]
     };
+  },
+  mounted() {
+    chakhsu(document.getElementById("signature"), "如人饮水，冷暖自知。");
   },
   methods: {
     // 点击展开折叠菜单事件
@@ -234,11 +233,11 @@ export default {
   user-select: none;
 
   .leftbar-user {
-    height: 25%;
     background: url(~@/assets/waves.png) no-repeat;
     padding: 30px 20px;
     text-align: center;
     overflow: hidden;
+    box-sizing: border-box;
 
     img {
       vertical-align: middle;
@@ -253,6 +252,15 @@ export default {
         transform: rotate(360deg) scale(1.2);
       }
     }
+
+    #signature {
+      padding-top: 10px;
+      color: var(--yuan-font-white-color);
+    }
+  }
+
+  .bgImg:hover {
+    background: url(~@/assets/snow.gif) no-repeat;
   }
 
   .text {
@@ -269,7 +277,7 @@ export default {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
-    padding: 0 0.1rem 70px 0.1rem;
+    padding: 0 0.1rem 100px 0.1rem;
     margin-bottom: -0.2rem;
     overflow: -moz-scrollbars-none;
     overflow: -moz-scrollbars-none;
@@ -297,7 +305,7 @@ export default {
   }
 
   .font-12px {
-    color: var(--yuan-font-color);
+    color: var(--yuan-font-white-color);
     font-size: 12px;
   }
 
@@ -309,7 +317,8 @@ export default {
 .oneMenu {
   user-select: none;
   padding: 15px 30px;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--yuan-font-white-color);
   transition: all 0.4s;
   cursor: pointer;

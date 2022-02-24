@@ -35,6 +35,7 @@
       </div>
     </div>
   </div>
+
 </template>
 <script>
 import yLoding from "@/views/loding";
@@ -94,6 +95,7 @@ export default {
     };
   },
   async created() {
+    console.log(document.querySelector("#canvas"));
     console.log("\n %c XXXXXXXX | https://XXXXXXX.cn", "color:#fff;background: linear-gradient(to right , #7A88FF, #d26aff);padding:5px;border-radius: 10px;");
     const res = await getData();
     console.log(res);
@@ -101,6 +103,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+
 .content {
   margin-top: 100px;
   position: relative;

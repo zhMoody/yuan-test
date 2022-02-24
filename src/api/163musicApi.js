@@ -1,23 +1,23 @@
-import request from '@/utils/163music'
+import request from "@/utils/163music";
 
 class Music {
   getMusicList = (id) =>
     request({
-      url: `playlist/detail?id=${id}&limit=10`,
-      method: 'post',
-    })
+      url: `playlist/detail?id=${id}`,
+      method: "post"
+    });
 
   getSong = (id) =>
     request({
       url: `/song/detail?ids=${id}`,
-      method: 'post',
-    })
+      method: "post"
+    });
 
   getSongUrl = (id) =>
     request({
       url: `/song/url?id=${id}`,
-      method: 'post',
-    })
+      method: "post"
+    });
 }
 
-export default new Music()
+export default new Music();

@@ -11,10 +11,12 @@ import "md-editor-v3/lib/style.css";
 import "highlight.js/scss/atom-one-dark.scss";
 import "element-plus/dist/index.css";
 import "lib-flexible";
+import lazyPlugin from "vue3-lazy";
 import "@/styles/base.css";
 import "@/utils/index";
 import "../mock";
 import VueContextMenu from "vue-contextmenu";
+
 
 const app = createApp(App);
 app.use(store);
@@ -22,4 +24,8 @@ app.use(router);
 app.use(VueContextMenu);
 app.use(ElSlider);
 app.use(ElAvatar);
+app.use(lazyPlugin, {
+  loading: require("@/assets/load.gif"),
+  error: require("@/assets/load.gif")
+});
 app.mount("#app");

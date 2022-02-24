@@ -16,7 +16,7 @@
         </svg>2112</span>
         <span class="doc"> <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-wendang"></use>
-        </svg>6475</span>
+        </svg>{{ md.length }}</span>
         <span class="articles"><svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-wenzhang"></use>
         </svg>Vue ThinkPHP6</span>
@@ -27,6 +27,7 @@
       <div class="articleTitle">
         <span> Vue ThinkPHP6</span>
       </div>
+      <!--      preview-only-->
       <MdEditor
         v-model="md"
         class="hText"
@@ -37,9 +38,9 @@
       ></MdEditor>
     </div>
     <div class="news">
-      <div class="recommended">
+      <div class="recommended" id="recommended">
         <p>推荐</p>
-        <div class="recommendeds">
+        <div class="recommendeds" v-for="i in 3" :key="i">
           <div class="img">
             <img src="../../assets/baise.jpeg" alt="">
           </div>
@@ -70,6 +71,7 @@ import { ref } from "vue";
 import { getData } from "@/api";
 import MdEditor from "md-editor-v3";
 import { ElNotification } from "element-plus";
+import router from "@/router";
 
 export default {
   components: { MdEditor },
@@ -134,7 +136,6 @@ export default {
       titleList.value = list;
     };
     const sectionChange = (child) => {
-
       const scrollBox = document.documentElement; // 容器
       let distance = scrollBox.scrollTop;
       const curTag = document.querySelector("#" + child); // 节点tag
@@ -170,6 +171,35 @@ export default {
         }
       }
     };
+    const bodyScroll = () => {
+      function getHeight() {
+        try {
+          let recommended = document.querySelector("#recommended").scrollHeight || 380;
+          let label = document.querySelector("#label").scrollHeight || 105;
+          let scHeight = recommended + label + 20;
+          return scHeight || 505;
+        } catch (e) {
+        }
+      }
+
+      document.body.onscroll = () => {
+        if (document.documentElement.scrollTop > getHeight()) {
+          document.querySelector("#articleList").style.position = "fixed";
+          document.querySelector("#articleList").style.top = "100px";
+          document.querySelector("#articleList").style.overflowX = "auto";
+          document.querySelector("#articleList").style.height = "100%";
+          document.querySelector("#articleList").style.width = document.querySelector("#label").scrollWidth + "px";
+        } else if (document.documentElement.scrollTop < getHeight()) {
+          try {
+            document.querySelector("#articleList").style.position = "";
+            document.querySelector("#articleList").style.width = "100%";
+          } catch (e) {
+          }
+
+        }
+      };
+
+    };
     return {
       md,
       titleList,
@@ -177,26 +207,17 @@ export default {
       colorLists,
       copy,
       getCatalog,
-      sectionChange
+      sectionChange,
+      bodyScroll
     };
   },
-
   async created() {
+    console.log(2221, Number(this.$route.params.id));
     const res = await getData();
     this.md = res.data.article.content;
   },
   mounted() {
-    document.body.onscroll = () => {
-      console.log(document.querySelector("#label").scrollWidth);
-      if (document.documentElement.scrollTop > 325) {
-        document.querySelector("#articleList").style.position = "fixed";
-        document.querySelector("#articleList").style.top = "100px";
-        document.querySelector("#articleList").style.width = document.querySelector("#label").scrollWidth + "px";
-      } else if (document.documentElement.scrollTop < 325) {
-        document.querySelector("#articleList").style.position = "";
-        document.querySelector("#articleList").style.width = "100%";
-      }
-    };
+    this.bodyScroll();
   }
 };
 </script>
@@ -207,7 +228,7 @@ export default {
 }
 
 .carousel {
-  width: 70%;
+  width: 72%;
   padding: 10px;
   //background-color: var(--yuan-bg-clolr);
   border-radius: 10px;
@@ -219,7 +240,7 @@ export default {
 }
 
 .news {
-  width: 29%;
+  width: 27%;
   border-radius: 10px;
   padding: 10px;
   //background-color: var(--yuan-bg-clolr);
@@ -267,6 +288,7 @@ export default {
 
   .recommendeds {
     display: flex;
+    margin-bottom: 10px;
   }
 
   div {
@@ -307,12 +329,11 @@ export default {
       font-weight: 400;
       margin: 0;
       height: 100%;
-      text-overflow: -o-ellipsis-lastline;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
     }
   }
@@ -320,7 +341,7 @@ export default {
 
 .articleList {
   width: 100%;
-  padding: 20px 10px;
+  padding: 20px 10px 70px 10px;
   border-radius: 10px;
   background: var(--yuan-bg-clolr);
 
@@ -391,7 +412,6 @@ export default {
   content: '';
   display: block;
   position: absolute;
-  transition: all .2s;
   opacity: 0;
   top: 20px;
   width: 0;
@@ -408,7 +428,6 @@ export default {
 .doc::after,
 .articles::after,
 .share::after {
-  transition: all .2s;
   opacity: 0;
   display: block;
   background-color: var(--yuan-font-color);
@@ -477,7 +496,11 @@ export default {
 
 .share::after {
   content: '分享';
-  right: 343px;
+  float: right;
+}
+
+.share::before {
+  margin-left: 2px;
 }
 
 
@@ -501,9 +524,9 @@ export default {
 .articles:hover::before,
 .share:hover::before {
   opacity: 1;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-top: 10px solid var(--yuan-font-color);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--yuan-font-color);
 }
 
 
