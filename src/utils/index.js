@@ -271,8 +271,11 @@ export const handleArrData = (data) => {
   });
   return newArr;
 };
-// 签名
 
+/**
+ * @data 签名
+ * @type {function(...[*]=)}
+ */
 export const chakhsu = function(r, itemContent = "") {
   function t() {
     return b[Math.floor(Math.random() * b.length)];
@@ -306,10 +309,9 @@ export const chakhsu = function(r, itemContent = "") {
 
 
 /**
- * @data copy
+ * @data copy模版
  * @type {function(...[*]=)}
  */
-
 document.body.addEventListener("copy", function(event) {
   let clipboardData = event.clipboardData || window.clipboardData;
   if (!clipboardData) {

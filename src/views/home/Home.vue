@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { ElCarousel, ElCarouselItem } from "element-plus";
 import { getData } from "@/api";
 
@@ -152,7 +152,6 @@ export default {
       "mianju.jpg",
       "hai.jpg.jpeg"
     ]);
-
     const moreContent = async () => {
       more.value = true;
       const res = await getData();
@@ -351,6 +350,7 @@ export default {
           border-radius: 10px;
           object-fit: cover;
           transition: all 0.5s;
+          object-fit: cover;
           overflow: hidden;
           box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
 

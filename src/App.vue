@@ -11,21 +11,22 @@
         </svg>
       </div>
       <div :class="showTopCard ? 'topCard' : 'opacity'">
-        <div class="switchBgColor" @click="switchBgColor">
-          <span v-if="showNight">
+        <div class="lightTheme">
+          <div data-set-theme="Light" data-act-class="ACTIVECLASS">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-taiyang"></use>
             </svg>
             日间模式
-          </span>
-          <span v-else>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-yueliang"></use>
-            </svg>
-            夜间模式
-          </span>
+          </div>
         </div>
-        <hr />
+        <hr>
+        <div class="darkTheme" data-set-theme="dark" data-act-class="ACTIVECLASS">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-yueliang"></use>
+          </svg>
+          夜间模式
+        </div>
+        <hr>
         <div class="BackToTheTop" @click="BackToTheTop">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-huojian"></use>
@@ -43,7 +44,8 @@ import yHeader from "@/layout/Header/header.vue";
 import yMenu from "@/layout/Menu/menu.vue";
 import yContent from "@/layout/Content/content.vue";
 import { getData } from "@/api";
-import { ref } from "vue";
+import { themeChange } from "theme-change";
+import { ref, onMounted } from "vue";
 
 export default {
   components: {
@@ -75,23 +77,27 @@ export default {
     };
     const switchBgColor = () => {
       showNight.value = !showNight.value;
-      showTopCard.value = false;
-      if (showNight.value) {
-        document.body.setAttribute("theme", "night");
-        document.querySelector("#header").setAttribute("theme", "night");
-        document.querySelector("#md-editor-v3").setAttribute("themes", "night");
-      } else if (!showNight.value) {
-        document.body.setAttribute("theme", "");
-        document.querySelector("#header").setAttribute("theme", "");
-        document.querySelector("#md-editor-v3").setAttribute("themes", "");
-      }
+      // showTopCard.value = false;
+      // if (showNight.value) {
+      //   document.body.setAttribute("theme", "night");
+      //   document.querySelector("#header").setAttribute("theme", "night");
+      //   document.querySelector("#md-editor-v3").setAttribute("themes", "night");
+      // } else if (!showNight.value) {
+      //   document.body.setAttribute("theme", "");
+      //   document.querySelector("#header").setAttribute("theme", "");
+      //   document.querySelector("#md-editor-v3").setAttribute("themes", "");
+      // }
     };
+    onMounted(() => {
+      themeChange(false);
+    });
     return {
       showNight,
       showTopCard,
       show,
       BackToTheTop,
-      switchBgColor
+      switchBgColor,
+      themeChange
     };
   },
   async created() {
@@ -147,7 +153,7 @@ export default {
   .topCard {
     opacity: 1;
     width: 150px;
-    height: 100px;
+    height: 120px;
     padding: 20px 20px;
     font-size: 16px;
     border-radius: 20px;
@@ -162,8 +168,9 @@ export default {
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   }
 
-  .BackToTheTop,
-  .switchBgColor {
+  .lightTheme,
+  .darkTheme,
+  .BackToTheTop {
     text-align: center;
     cursor: pointer;
     color: #2f2e2e;
@@ -175,15 +182,19 @@ export default {
     }
   }
 
+  .lightTheme:hover,
+  .darkTheme:hover,
   .BackToTheTop:hover {
     color: #0ada02;
     background-color: var(--yuan-bg-clolr);
     border-radius: 0 0 10px 10px;
   }
 
-  .switchBgColor:hover {
-    color: #0ada02;
-    background-color: var(--yuan-bg-clolr);
+  .darkTheme:hover {
+    border-radius: 0;
+  }
+
+  .lightTheme:hover {
     border-radius: 10px 10px 0 0;
   }
 }

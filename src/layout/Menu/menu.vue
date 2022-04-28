@@ -12,7 +12,7 @@
     <div class="menu_card">
       <ul class="menu">
         <li class="text">导航</li>
-        <li v-for="navigation in navigationList" :key="navigation.path">
+        <li data-aos="fade-up" v-for="navigation in navigationList" :key="navigation.path">
           <router-link :to="navigation.path">
             <svg class="icon" aria-hidden="true">
               <use :xlink:href="navigation.icon"></use>
@@ -20,7 +20,7 @@
             {{ navigation.name }}
           </router-link>
         </li>
-        <li v-for="(item, index) in menuList" :key="item.name" class="oneMenu">
+        <li data-aos="fade-up" v-for="(item, index) in menuList" :key="item.name" class="oneMenu">
           <div
             :class="item.isSubShow ? 'active' : 'myactive'"
             @click="showToggle(item, index)"
@@ -33,7 +33,7 @@
               <use xlink:href="#icon-youjiantou"></use>
             </svg>
           </div>
-          <ul v-show="item.isSubShow" class="menu-item">
+          <ul data-aos="fade-up" v-show="item.isSubShow" class="menu-item">
             <li v-for="subItem in item.subItems" :key="subItem.name">
               <router-link :to="subItem.path">{{ subItem.name }}</router-link>
             </li>
@@ -70,6 +70,7 @@
 
 <script>
 import { chakhsu } from "@/utils";
+import AOS from "aos";
 
 export default {
   name: "Menu",
@@ -194,6 +195,12 @@ export default {
     };
   },
   mounted() {
+    AOS.init({
+      offset: 200,
+      duration: 200,   //持续时间
+      easing: "ease-in-sine",
+      delay: 100
+    });
     chakhsu(document.getElementById("signature"), "如人饮水，冷暖自知。");
   },
   methods: {

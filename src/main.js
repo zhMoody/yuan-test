@@ -14,13 +14,14 @@ import "lib-flexible";
 import lazyPlugin from "vue3-lazy";
 import "@/styles/base.css";
 import "@/utils/index";
+import Aos from "aos";
 import "../mock";
 import VueContextMenu from "vue-contextmenu";
-
 
 const app = createApp(App);
 app.use(store);
 app.use(router);
+app.use(Aos);
 app.use(VueContextMenu);
 app.use(ElSlider);
 app.use(ElAvatar);

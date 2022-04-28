@@ -55,6 +55,23 @@ body[theme=night] {
 }
 
 :root {
+    --my-color: #fff;
+    /* or any other variables/style */
+}
+
+[data-theme='dark'] {
+    --my-color: #262424;
+}
+
+[data-theme='pink'] {
+    --my-color: #ffabc8;
+}
+
+body {
+    background-color: var(--my-color);
+}
+
+:root {
     --yuan-transparent: transparent;
     --yuan-bg-clolr: #FFFFFF5F;
     --yuan-font-color: #50545a;

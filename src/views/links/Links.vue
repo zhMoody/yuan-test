@@ -33,33 +33,38 @@
       <div class="home"></div>
     </div>
   </div>
-  <div v-for="i in 100" id="Links" :key="i">this is an Links page{{ msg }}</div>
-  <button class="btn" @click="handliClick">换颜色</button>
   <div class="tikeUp">
     <div class="progress"></div>
   </div>
+  <video controls style="width: 70%" id="videoElement"></video>
 </template>
 
 <script>
 import { ref } from "vue";
+import fly from "flv.js";
 
 export default {
 
   setup() {
     const msg = ref("1233");
-    const handliClick = () => {
-      document.body.style.backgroundColor = "var(--yuan-dark)";
-      document.querySelector("#header").style.backgroundColor =
-        "var(--yuan-dark)";
-      document.querySelector("#text").style.color =
-        "var(--yuan-font-white-color)";
-    };
     return {
-      msg,
-      handliClick
+      msg
     };
   },
   created() {
+  },
+  mounted() {
+    let url = require("../../assets/shanhai.mp4");
+    if (fly.isSupported()) {
+      let videoEl = document.querySelector("#videoElement");
+      let flvPlay = fly.createPlayer({
+        type: "mp4",
+        url: url
+      });
+      flvPlay.attachMediaElement(videoEl);
+      flvPlay.load();
+      flvPlay.play();
+    }
   }
 };
 </script>

@@ -54,7 +54,8 @@
         <p>标签</p>
         <div class="labels">
           <span v-for="i in 4" :key="i"
-                :style="{'background':colorLists[Math.floor(Math.random()*10)]}">vue1{{ i + 1 }}</span>
+                :style="{'background':colorLists[Math.floor(Math.random()*10)]}">vue呃得{{ i + 1
+            }}</span>
         </div>
       </div>
       <div class="articleList" id="articleList">
@@ -81,33 +82,33 @@ export default {
     const share = ref("~");
     const colorLists = ref([
 
-      "rgb(229, 0, 19)",
+      "rgb(234,80,92)",
 
-      "rgb(206,194,28)",
+      "rgb(229,221,115)",
 
-      "rgb(0,161,233)",
+      "rgb(116,193,227)",
 
-      "rgb(109,185,45)",
+      "rgb(169,231,118)",
 
-      "rgb(166,0,130)",
+      "rgb(241,82,207)",
 
-      "rgb(237,108,0)",
+      "rgb(236,166,106)",
 
-      "rgb(240, 28, 131)",
+      "rgb(227,89,156)",
 
-      "rgb(84, 21, 226)",
+      "rgb(148,109,234)",
 
-      "rgb( 0,128,0)",
+      "rgb(79,227,79)",
 
-      "rgb( 255,69,0)",
+      "rgb(231,129,91)",
 
-      "rgb( 255,165,0)",
+      "rgb(236,185,93)",
 
-      "rgb( 178,34,34)",
+      "rgb(234,137,137)",
 
-      "rgb( 255,0,255)",
+      "rgb(232,133,232)",
 
-      "rgb(65,105,225)",
+      "rgb(87,121,224)",
 
       "blueviolet"
 
@@ -139,8 +140,7 @@ export default {
       const scrollBox = document.documentElement; // 容器
       let distance = scrollBox.scrollTop;
       const curTag = document.querySelector("#" + child); // 节点tag
-      console.log(curTag);
-      const offsetTop = curTag.offsetTop - 120; // 滚动距离
+      const offsetTop = curTag.offsetTop + 190; // 滚动距离
       let step = offsetTop / 50;
       if (offsetTop > distance) {
         smoothDown();
@@ -237,6 +237,10 @@ export default {
     width: 100%;
 
   }
+}
+
+.hText {
+  color: var(--my-color);
 }
 
 .news {
@@ -341,7 +345,7 @@ export default {
 
 .articleList {
   width: 100%;
-  padding: 20px 10px 70px 10px;
+  padding: 20px 10px 120px 10px;
   border-radius: 10px;
   background: var(--yuan-bg-clolr);
 
@@ -356,13 +360,35 @@ export default {
     padding: 10px 0 10px 20px;
     cursor: pointer;
     color: var(--yuan-font-white-color);
+    position: relative;
+    border-radius: 4px;
+    transition: all .4s;
 
     span {
       font-size: 14px;
 
+
       &:hover {
         opacity: .8;
       }
+    }
+
+    &:hover {
+      background-color: var(--yuan-bg-clolr);
+      color: #0acf97;
+    }
+
+    &:hover::before {
+      transition: all .4s;
+      content: '';
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 5px;
+      height: 30px;
+      width: 3px;
+      background-color: #0acf97;
+      border-radius: 3px;
     }
   }
 }
@@ -555,6 +581,10 @@ export default {
   color: #666;
 }
 
+::v-deep .default-theme p {
+  color: #5f5b5b;
+}
+
 ::v-deep .default-theme h1::after,
 ::v-deep .default-theme h2::after,
 ::v-deep .default-theme h3::after,
@@ -563,10 +593,10 @@ export default {
 ::v-deep .default-theme h6::after {
   content: '';
   display: block;
-  width: 70px;
+  width: 50px;
   height: 3px;
   border-radius: 4px;
-  background-color: var(--yuan-teal);
+  background-color: var(--my-color);
   position: absolute;
   box-shadow: rgb(51 227 26 / 97%) 0 2px 2px;
   bottom: -2px;
@@ -598,6 +628,6 @@ export default {
 ::v-deep .default-theme h4:hover::after,
 ::v-deep .default-theme h5:hover::after,
 ::v-deep .default-theme h6:hover::after {
-  width: 140px;
+  width: 70px;
 }
 </style>

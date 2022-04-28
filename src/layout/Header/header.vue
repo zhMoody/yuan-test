@@ -46,7 +46,7 @@
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-message"></use>
       </svg>
-      <svg class="icon" aria-hidden="true" @click="showDialog">
+      <svg class="icon" aria-hidden="true" @click="open">
         <use xlink:href="#icon-profile"></use>
       </svg>
     </div>
@@ -103,6 +103,7 @@ import { handleArrData, wenzi } from "@/utils";
 import music from "@/api/163musicApi";
 import { ref } from "vue";
 import { ElNotification } from "element-plus";
+import { alerts } from "@/components/Alert";
 
 export default {
   name: "Header",
@@ -115,6 +116,7 @@ export default {
       username: "",
       password: ""
     });
+    const open = () => alerts();
     let btnLoading = ref(false);
     let isok = ref(false);
     const musiclist = ref([
@@ -194,21 +196,22 @@ export default {
       musiclist,
       close,
       showDialog,
-      handleSubmit
+      handleSubmit,
+      open
     };
   },
   created() {
     this.getSongList();
   },
   mounted() {
-    let el = this.$refs.containerTextRef;
-    let phrases = [
-      "好久不见",
-      "最近为什么没见到你啊？",
-      "园丁遍栽桃李树",
-      "学子尽作栋梁才"
-    ];
-    wenzi(el, phrases);
+    // let el = this.$refs.containerTextRef;
+    // let phrases = [
+    //   "好久不见",
+    //   "最近为什么没见到你啊？",
+    //   "园丁遍栽桃李树",
+    //   "学子尽作栋梁才"
+    // ];
+    // wenzi(el, phrases);
   },
   methods: {
     // music play List
@@ -242,7 +245,7 @@ svg {
   width: 100%;
   height: 70px;
   line-height: 80px;
-  background: url('~@/assets/MulticolorGlows.png') #e7e4e4;
+  background: url('~@/assets/MulticolorGlows.png') var(--my-color);
   backdrop-filter: saturate(200%) blur(30px);
   display: flex;
   justify-content: space-between;
