@@ -4,7 +4,7 @@
     <div class="carousel">
       <el-carousel style="width: 100%; border-radius: 10px" pause-on-hover loop>
         <el-carousel-item v-for="item in img" :key="item">
-          <img :src="require(`@/assets/${item}`)" alt="" />
+          <img :src="item" alt="" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -147,10 +147,10 @@ export default {
     });
     let more = ref(false);
     const img = ref([
-      "baise.jpeg",
-      "flowers.png",
-      "mianju.jpg",
-      "hai.jpg.jpeg"
+      "http://rboa9eje7.hb-bkt.clouddn.com/assets/16.568d736e.jpg",
+      "http://rboa9eje7.hb-bkt.clouddn.com/assets/baise.e2cba4a0.jpeg",
+      "http://rboa9eje7.hb-bkt.clouddn.com/assets/mianju.be5d08a3.jpg",
+      "http://rboa9eje7.hb-bkt.clouddn.com/assets/10.28edaaf5.jpg"
     ]);
     const moreContent = async () => {
       more.value = true;
@@ -196,13 +196,8 @@ export default {
     let overheadList = res?.data?.data.filter((item) => item.overhead === 1);
     let overlastList = res?.data?.data.filter((item) => item.overhead === 0);
     let newCardList = [...overheadList, ...overlastList];
-    console.log("overheadList", overheadList);
-    console.log("overlastList", overlastList);
-    console.log("newCardList", newCardList);
     this.cardList = newCardList || [];
     this.TakeUp.article = res.data.data.length + res.data.datas.length;
-
-
   }
 };
 </script>

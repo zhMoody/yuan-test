@@ -8,7 +8,18 @@ let data = Mock.mock({
       "shopId|+1": 1, //生成商品id，自增1
       username: "moody", //name，长度为5个汉字
       title: "@ctitle(10)",
-      imgUrl: [require("@/assets/baise.jpeg"), require("@/assets/flowers.png"), require("@/assets/hai.jpg.jpeg"), require("@/assets/3.jpg"), require("@/assets/4.jpg"), require("@/assets/10.jpg"), require("@/assets/11.jpg"), require("@/assets/12.jpg"), require("@/assets/14.jpg"), require("@/assets/16.jpg"), require("@/assets/22.jpg")], //生成随机图片，大小/背景色/字体颜色/文字信息
+      imgUrl: [
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/10.28edaaf5.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/11.970a5960.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/12.e62dbdf3.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/14.1c37268a.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/16.568d736e.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/22.3982a9d4.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/3.8066c187.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/4.970a5960.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/baise.e2cba4a0.jpeg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/flowers.253ae0b0.png",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/mianju.be5d08a3.jpg"], //生成随机图片，大小/背景色/字体颜色/文字信息
       "overhead|0-1": 100,
       "likes|992-10000": 100, // 生成 随机数
       "comments|992-10000": 100, // 生成 随机数
@@ -22,7 +33,11 @@ let data = Mock.mock({
       username: "@ctitle(5)", //name，长度为5个汉字
       title: "@ctitle(10)",
       "overhead|0": 100,
-      imgUrl: [require("@/assets/baise.jpeg"), require("@/assets/flowers.png"), require("@/assets/hai.jpg.jpeg"), require("@/assets/mianju.jpg")], //生成随机图片，大小/背景色/字体颜色/文字信息
+      imgUrl: [
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/hai.jpg.de084b57.jpeg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/16.568d736e.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/22.3982a9d4.jpg",
+        "http://rboa9eje7.hb-bkt.clouddn.com/assets/12.e62dbdf3.jpg"], //生成随机图片，大小/背景色/字体颜色/文字信息
       "likes|992-10000": 100, // 生成 随机数
       "comments|992-10000": 100, // 生成 随机数
       time: "2022-1-20"

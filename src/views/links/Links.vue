@@ -54,7 +54,7 @@ export default {
   created() {
   },
   mounted() {
-    let url = require("../../assets/shanhai.mp4");
+    let url = "http://rboa9eje7.hb-bkt.clouddn.com/assets%2Fshanhai.mp4";
     if (fly.isSupported()) {
       let videoEl = document.querySelector("#videoElement");
       let flvPlay = fly.createPlayer({

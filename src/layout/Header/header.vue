@@ -216,8 +216,7 @@ export default {
   methods: {
     // music play List
     async getSongList() {
-      const res = await music.getMusicList(7283160066);
-      console.log(res.data.playlist.tracks);
+      const res = await music.getMusicList(2151381888);
       if (res.status === 200 && res.data) {
         let arr = [];
         for (const item of res.data.playlist.tracks) {
@@ -245,7 +244,7 @@ svg {
   width: 100%;
   height: 70px;
   line-height: 80px;
-  background: url('~@/assets/MulticolorGlows.png') var(--my-color);
+  background: url(http://rboa9eje7.hb-bkt.clouddn.com/assets%2FMulticolorGlows.8f03f6b2.png) var(--my-color);
   backdrop-filter: saturate(200%) blur(30px);
   display: flex;
   justify-content: space-between;

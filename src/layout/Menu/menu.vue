@@ -267,7 +267,7 @@ export default {
   }
 
   .bgImg:hover {
-    background: url(~@/assets/snow.gif) no-repeat;
+    background: url(http://rboa9eje7.hb-bkt.clouddn.com/assets/snow.8db5efdb.gif) no-repeat;
   }
 
   .text {

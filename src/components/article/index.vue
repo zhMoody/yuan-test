@@ -42,7 +42,7 @@
         <p>推荐</p>
         <div class="recommendeds" v-for="i in 3" :key="i">
           <div class="img">
-            <img src="../../assets/baise.jpeg" alt="">
+            <img src="http://rboa9eje7.hb-bkt.clouddn.com/assets/22.3982a9d4.jpg" alt="">
           </div>
           <div class="titles">
             <p class="contents">推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐推荐</p>
