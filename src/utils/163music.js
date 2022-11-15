@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "http://47.104.190.10:3000/",
+  baseURL: "http://hubyo.cn:8090/",
   timeout: 5000
 });
 // 添加请求拦截器
