@@ -216,7 +216,7 @@ export default {
   methods: {
     // music play List
     async getSongList() {
-      const res = await music.getMusicList(2151381888);
+      const res = await music.getMusicList(7518177600);
       if (res.status === 200 && res.data) {
         let arr = [];
         for (const item of res.data.playlist.tracks) {
